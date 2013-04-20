@@ -1,5 +1,6 @@
 SpaceAlarp::Application.routes.draw do
-  get "room/show"
+  
+  resources :ships, :only => [:new, :show, :create]
 
   resources :rooms, :only => [:show] do
     member do
@@ -55,7 +56,7 @@ SpaceAlarp::Application.routes.draw do
 
   # you can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'ships#new'
 
   # see how all your routes lay out with "rake routes"
 
