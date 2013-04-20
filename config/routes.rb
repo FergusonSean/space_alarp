@@ -1,8 +1,11 @@
 SpaceAlarp::Application.routes.draw do
   get "room/show"
 
-  get "room/update"
-
+  resources :rooms, :only => [:show] do
+    member do
+      post :push_button
+    end
+  end
   # the priority is based upon order of creation:
   # first created -> highest priority.
 
