@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sector: MyString
+  level: 1
+  power: 1
+
+two:
+  sector: MyString
+  level: 1
+  power: 1
