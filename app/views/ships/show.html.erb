@@ -26,6 +26,17 @@
         <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.lower_room} %>
       </td>
     </tr>
+    <tr>
+      <td>
+        Damage : <%= @ship.red_sector.damage %>
+      </td>
+      <td>
+        Damage : <%= @ship.white_sector.damage %>
+      </td>
+      <td>
+        Damage : <%= @ship.blue_sector.damage %>
+      </TD>
+    </tr>
   </tbody>
   
 </table>

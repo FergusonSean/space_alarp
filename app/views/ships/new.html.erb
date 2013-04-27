@@ -39,7 +39,7 @@ for the previous crew. -->
 
 
 <h1>Ready to start a new mission?</h1>
-<%= form_for @ship do |f| %>
+<%= form_for(@ship, {:path => 'relative path to action'}) do |f| %>
 
 <%= f.submit 'Start Mission' %>
 <% end %>
