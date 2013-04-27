@@ -1,3 +1,31 @@
-<h1>Ships#show</h1>
-<p>Find me in app/views/ships/show.html.erb</p>
-<%= @ship.id %>
+<h1>Mission <%= @ship.id %></h1>
+
+<table class="ship_table">
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.sectors.first.rooms.first} %>
+      </td>
+      <td>
+        upper white
+      </td>
+      <td>
+        upper blue
+      </td>
+    </tr>
+    <tr>
+      <td>
+        lower red
+      </td>
+      <td>
+        lower white
+      </td>
+      <td>
+        lower blue
+      </td>
+    </tr>
+  </tbody>
+  
+</table>
