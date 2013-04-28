@@ -1,6 +1,10 @@
 SpaceAlarp::Application.routes.draw do
   
-  resources :ships, :only => [:new, :show, :create]
+  resources :ships, :only => [:new, :show, :create] do
+	collection do
+	  post :join
+	end
+  end
 
   resources :rooms, :only => [:show] do
     member do
