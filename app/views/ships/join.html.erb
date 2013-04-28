@@ -1,3 +1,31 @@
-<h1> 'Hello!'  </h1>
-<a href="url">Upstairs Sector Red</a>
-<%= link_to "Upstairs Sector Red", room_path(@ship.red_sector.upper_room) %>
+<h1> Select Sector to Join </h1>
+
+<table class="ship_table">
+  <thead/>
+  <tbody>
+	  <tr>
+		  <td>
+        <%= link_to "Upper Red",	room_path(@ship.red_sector.upper_room) %>	<br/>
+		  </td>
+		  <td>
+        <%= link_to "Upper White",	room_path(@ship.white_sector.upper_room) %>	<br/>
+		  </td>
+		  <td>
+        <%= link_to "Upper Blue",	room_path(@ship.blue_sector.upper_room) %>	<br/>
+		  </td>
+	  </tr>
+	  <tr>
+		  <td>
+        <%= link_to "Lower Red",	room_path(@ship.red_sector.lower_room) %>	<br/>
+		  </td>
+		  <td>
+        <%= link_to "Lower White",	room_path(@ship.white_sector.lower_room) %>	<br/>
+		  </td>
+		  <td>
+        <%= link_to "Lower Blue",	room_path(@ship.blue_sector.lower_room) %>	<br/>
+		  </td>
+	  </tr>
+  </tbody>
+</tbody>
+
+
