@@ -47,6 +47,6 @@ for the previous crew. -->
 <h1>Join an existing mission?</h1>
 <%= form_for @ship, :url => join_ships_path do |f| %>
 <%= f.label :id, "Mission Number:" %>
-<%= f.text_field :id, :size => 6 %>
+<%= f.text_field :id, :size => 4 %>
 <%= f.submit 'Join' %>
 <% end %>
