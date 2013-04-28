@@ -11,4 +11,16 @@ class Ship < ActiveRecord::Base
     
     ship
   end
+  
+  def red_sector
+    sectors.where(:color => 'red').first
+  end
+  
+  def white_sector
+    sectors.where(:color => 'white').first
+  end
+  
+  def blue_sector
+    sectors.where(:color => 'blue').first
+  end
 end

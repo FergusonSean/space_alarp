@@ -1,4 +1,4 @@
-<p>Friends and family, we are gathered here to remember the extraordinary 
+<!-- Friends and family, we are gathered here to remember the extraordinary 
 courage and heroism the departed showed in service to their nation... Eh? 
 Oh, sorry. Wrong group. Um... here we are!
 My brave cadets, welcome to the accelerated learning course on Space 
@@ -35,11 +35,11 @@ do encounter the enemy will receive a handsome bonus if you return. “When
 you return,” I mean. I certainly have no doubt that... Anyway. Sorry. It’s a 
 bit stuffy in here.
 We’ll take a short break, now, because I am due to speak at a... ceremony 
-for the previous crew.</p>
+for the previous crew. -->
 
 
 <h1>Ready to start a new mission?</h1>
-<%= form_for @ship do |f| %>
+<%= form_for(@ship, {:path => 'relative path to action'}) do |f| %>
 
 <%= f.submit 'Start Mission' %>
 <% end %>

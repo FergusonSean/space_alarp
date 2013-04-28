@@ -11,4 +11,12 @@ class Sector < ActiveRecord::Base
     
     section
   end
+  
+  def upper_room
+    rooms.where(:level => 2).first
+  end
+  
+  def lower_room
+    rooms.where(:level => 1).first
+  end
 end
