@@ -7,6 +7,10 @@ class ShipsController < ApplicationController
     @ship = Ship.new
   end
 
+  def join 
+    @ship = Ship.find(params[:ship][:id])
+  end
+
   def create
     puts "I am a lovely bunch of coconuts"
     
