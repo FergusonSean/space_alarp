@@ -12,6 +12,11 @@ class Ship < ActiveRecord::Base
     ship
   end
   
+  def start_mission 
+    self.mission_start = DateTime.now
+	self.save!
+  end
+
   def red_sector
     sectors.where(:color => 'red').first
   end

@@ -1,5 +1,20 @@
 <h1>Mission <%= @ship.id %></h1>
 
+
+<% if @ship.mission_start != nil %>
+	Mission Start Time: <%= @ship.mission_start %>
+<% else %>
+	Mission Has Not Started.
+	<% @ship.start_mission %>
+<% end %>
+
+
+<input type="button" name="startMissionButton" value="Start The Mission!"
+onclick="setTimeout('alert(\'Surprise!\')', 2000)"/>
+
+<br/>
+<br/>
+
 <table class="ship_table">
   <thead>
   </thead>
