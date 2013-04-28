@@ -13,9 +13,6 @@ function startTheMission()
 
 <% if @ship.mission_start != nil %>
 	Mission Start Time: <%= @ship.mission_start %>
-<% else %>
-	Mission Has Not Started.
-	<% @ship.start_mission %>
 <% end %>
 
 <%= button_to_function "Start The Mission!", "startTheMission()" %>
@@ -31,24 +28,30 @@ function startTheMission()
   <tbody>
     <tr>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.upper_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.upper_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.red_sector.upper_room) %>
       </td>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.upper_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.upper_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.white_sector.upper_room) %>
       </td>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.upper_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.upper_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.blue_sector.upper_room) %>
       </td>
     </tr>
     <tr>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.lower_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.lower_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.red_sector.lower_room) %>
       </td>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.lower_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.lower_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.white_sector.lower_room) %>
       </td>
       <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.lower_room} %>
+        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.lower_room} %> <br/>
+        <%= link_to "Go to room",	room_path(@ship.blue_sector.lower_room) %>
       </td>
     </tr>
     <tr>
@@ -60,7 +63,7 @@ function startTheMission()
       </td>
       <td>
         Damage : <%= @ship.blue_sector.damage %>
-      </TD>
+      </td>
     </tr>
   </tbody>
   

@@ -9,11 +9,11 @@ class ShipsController < ApplicationController
 
   def join 
     @ship = Ship.find(params[:ship][:id])
+    
+    redirect_to :action => :show, :id => @ship.id
   end
 
   def create
-    puts "I am a lovely bunch of coconuts"
-    
     @ship = Ship.build_ship(params[:ship])
     
     redirect_to :action => :show, :id => @ship.id

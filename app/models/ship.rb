@@ -12,9 +12,9 @@ class Ship < ActiveRecord::Base
     ship
   end
   
-  def start_mission 
+  def start_mission!
     self.mission_start = DateTime.now
-	self.save!
+	  self.save!
   end
 
   def red_sector
