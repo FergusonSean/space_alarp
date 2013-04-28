@@ -7,4 +7,8 @@ class Room < ActiveRecord::Base
   #  TODO make this do something
     true
   end
+  
+  def location
+    "#{level == 2 ? 'Upper': 'Lower'} #{sector.color.titlecase} Sector"
+  end
 end

@@ -1,5 +1,4 @@
-<h1>Room#show</h1>
-<p>Find me in app/views/room/show.html.erb</p>
-<p>Room Contoller</p>
-<p>Sector: <%= @room.sector.color %> </p>
-<p>Level: <%= @room.level %> </p>
+<%= render :partial => 'rooms/room_status' %>
+<h3> Sector Damage: <%= @room.sector.damage %></h5>
+
+<%= button_to_function "A", "something", :class => 'a_button' %>
