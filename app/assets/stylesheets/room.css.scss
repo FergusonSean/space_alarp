@@ -3,8 +3,41 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .a_button {
   background-color: red;
-  height: 50px;
-  width: 50px;
-  font-size: 20;
-  font-style: bold;
+  height: 50%;
+  width: 100%;
+  text-decoration: bold;
+  font-size: 200px;
+}
+
+.b_button {
+  background-color: lightgreen;
+  height: 50%;
+  width: 100%;
+  text-decoration: bold;
+  font-size: 200px;
+}
+
+.info_column {
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+  border:1px solid black;
+  height:100%;
+  padding: 10px;
+}
+
+.action_column {
+  width: 30%;
+  vertical-align: top;
+  display: inline-block;
+  border:1px solid black;
+  height:100%;
+}
+
+body {
+  height:100%;
+}
+
+html {
+   height:100%;
 }

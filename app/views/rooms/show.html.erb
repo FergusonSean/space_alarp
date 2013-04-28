@@ -1,4 +1,9 @@
-<%= render :partial => 'rooms/room_status' %>
-<h3> Sector Damage: <%= @room.sector.damage %></h5>
 
+<div class="info_column">
+<%= render :partial => 'rooms/room_status' %>
+<h3> Sector Damage: <%= @room.sector.damage %></h3>
+</div>
+<div class="action_column">
 <%= button_to_function "A", "something", :class => 'a_button' %>
+<%= button_to_function "B", "something", :class => 'b_button' %>
+</div>
