@@ -1,4 +1,4 @@
 <% room ||= @room %>
 <h1> <%= room.location %> </h1>
 <p>Level: <%= room.level %> </p>
-<p>Power: <%= room.power %> </p>
+<p><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <%= room.power %> </p>

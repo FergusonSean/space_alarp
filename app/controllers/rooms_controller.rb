@@ -4,9 +4,10 @@ class RoomsController < ApplicationController
   end
   
   def push_button
+    @room = Room.find(params[:id])
     button_letter = params[:button]
     
-    respond_with @room.push_button(button_letter)
+    render :js => @room.push_button(button_letter)
   end
 
 end

@@ -5,7 +5,7 @@ class Room < ActiveRecord::Base
   
   def push_button(letter)
   #  TODO make this do something
-    true
+    "alert('dumb');"
   end
   
   def location
