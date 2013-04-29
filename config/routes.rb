@@ -4,6 +4,9 @@ SpaceAlarp::Application.routes.draw do
 	collection do
 	  post :join
 	end
+	member do
+	  post :start_mission
+	end
   end
 
   resources :rooms, :only => [:show] do

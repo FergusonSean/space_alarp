@@ -18,4 +18,10 @@ class ShipsController < ApplicationController
     
     redirect_to :action => :show, :id => @ship.id
   end
+
+  def start_mission
+    @ship = Ship.find(params[:id])
+	@ship.start_mission!
+	render :text => "OK"
+  end
 end

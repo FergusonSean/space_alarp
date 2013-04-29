@@ -1,3 +1,14 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+
+shipsFunctions = {
+  SendAjaxRequestToStartMission : function (startMissionUrl) {
+    $.ajax({ 
+      type:"POST",
+      url: startMissionUrl, 
+      success: function(data, textStatus, jqXHR){
+        //<Update the display on the page> 
+	    alert("victory");
+	  } 
+    });
+  }
+}
+

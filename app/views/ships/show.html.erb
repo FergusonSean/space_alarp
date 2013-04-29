@@ -1,23 +1,16 @@
-<head>
-<script>
-function startTheMission()
-{
-	document.getElementById("theButton").innerHTML="Mission Started!"
-}
-</script>
-</head>
-
-
 <h1>Mission <%= @ship.id %></h1>
 
 
 <% if @ship.mission_start != nil %>
-	Mission Start Time: <%= @ship.mission_start %>
+	Mission Start Time: <%= @ship.mission_start.localtime.strftime("%H:%M:%S")  %>
+<br/>
+	Mission End Time: <%= (@ship.mission_start.localtime + 10.minutes).strftime("%H:%M:%S") %>
+<% else %>
+  Mission Has Not Started.
+  <%= button_to_function "Start The Mission!", "shipsFunctions.SendAjaxRequestToStartMission('#{start_mission_ship_path @ship}');" %>
 <% end %>
 
-<%= button_to_function "Start The Mission!", "startTheMission()" %>
 
-<button id="theButton" name="startMissionButton" onclick="startTheMission()"/> "Start The Mission!"</button>
 
 <br/>
 <br/>
