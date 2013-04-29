@@ -1,6 +1,7 @@
 class ShipsController < ApplicationController
   def show
     @ship = Ship.find(params[:id])
+    @enemy = Enemy.new
   end
   
   def new

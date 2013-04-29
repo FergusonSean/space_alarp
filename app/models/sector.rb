@@ -2,6 +2,7 @@ class Sector < ActiveRecord::Base
   attr_accessible :color
   
   has_many :rooms
+  has_many :enemies
   
   belongs_to :ship
   

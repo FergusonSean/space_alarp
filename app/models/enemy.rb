@@ -1,3 +1,6 @@
 class Enemy < ActiveRecord::Base
-  attr_accessible :current_shield_strength, :distance, :health, :max_shield_strength, :name, :sector_id, :speed
+  attr_protected
+  has_many :enemy_actions
+  belongs_to :sector
+  accepts_nested_attributes_for :enemy_actions
 end

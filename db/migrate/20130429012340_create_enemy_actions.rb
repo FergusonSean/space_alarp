@@ -5,6 +5,7 @@ class CreateEnemyActions < ActiveRecord::Migration
       t.integer :enemy_id
       t.integer :damage
       t.integer :acceleration
+      t.integer :distance
       
       t.timestamps
     end

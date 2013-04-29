@@ -1,13 +1,17 @@
 SpaceAlarp::Application.routes.draw do
   
+  get "enemies/create"
+
   resources :ships, :only => [:new, :show, :create] do
-	collection do
-	  post :join
-	end
-	member do
-	  post :start_mission
-	end
+    collection do
+      post :join
+    end
+    member do
+      post :start_mission
+    end
   end
+  
+  resources :enemies, :only => [:create]
 
   resources :rooms, :only => [:show] do
     member do
