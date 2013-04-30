@@ -3,7 +3,9 @@
 
 <% if room.upper? %>
   <% room.sector.enemies.each do |enemy| %>
-    <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
+    <% if enemy.alive? %>
+      <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
+    <% end %>
   <% end %>
 <% end %>
 
