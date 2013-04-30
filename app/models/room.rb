@@ -9,6 +9,10 @@ class Room < ActiveRecord::Base
   end
   
   def location
-    "#{level == 2 ? 'Upper': 'Lower'} #{sector.color.titlecase} Sector"
+    "#{upper? ? 'Upper': 'Lower'} #{sector.color.titlecase} Sector"
+  end
+  
+  def upper?
+    level == 2
   end
 end
