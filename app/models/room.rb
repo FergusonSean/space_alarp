@@ -7,22 +7,21 @@ class Room < ActiveRecord::Base
     letter == 'A' ? push_a_button : push_b_button
   end
   
+  def find_target
+    sector.enemies.sort_by(&:distance).select{|enemy| !enemy.dead?}.first
+  end
+  
   def push_a_button
     if upper?
       if sector.lower_room.power > 0
         if sector.red?
-          puts sector.enemies
-          target = sector.enemies.sort_by(&:distance).first
-          puts "Target is #{target.nil? ? "nil" : "not nil"}"
-          target.damage!(4)
+          find_target.damage!(4)
           sector.use_power!(1)
         elsif sector.white?
-          target = sector.enemies.sort_by(&:distance).first
-          target.damage! 5
+          find_target.damage! 5
           sector.use_power! 1          
         else
-          target = sector.enemies.sort_by(&:distance).first
-          target.damage! 4
+          find_target.damage! 4
           sector.use_power! 1
         end
         return true
@@ -32,21 +31,21 @@ class Room < ActiveRecord::Base
       
     else
       if sector.red?
-        target = sector.enemies.sort_by(&:distance).first
-        target.health -= 2
-        target.save!
+        find_target.damage! 2
         return true
       elsif sector.white?
-        targets = sector.ship.sectors.map{|s| s.enemies.sort_by(&:distance).first }
-        targets.select{|t| t.distance < 8}.each do |target|
-          target.damage! 1   
+        if power > 0
+          targets = sector.ship.sectors.map{|s| s.find_target }
+          targets.select{|t| t.distance < 8}.each do |target|
+            target.damage! 1   
+          end
+          sector.use_power! 1
+          return true
+        else
+          return false
         end
-        sector.use_power! 1
-        return true
       else
-        target = sector.enemies.sort_by(&:distance).first
-        target.health -= 2
-        target.save!
+        find_target.damage! 2
         return true
       end
     end
