@@ -9,4 +9,15 @@
   <% end %>
 <% end %>
 
-<p><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <%= room.power %> </p>
+<div><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <%= room.power %> </div>
+
+<% if room.upper? %>
+  <div>Maximum Shield Strength: <%= room.sector.white? ? '3' : '2' %></div>
+  <div>Damage Dealt By Laser: <%= room.sector.white? ? '5' : '4' %></div>
+  <div>Laser Range: 15</div>
+<% else %>
+  <div>Maximum Reactor Energy: <%= room.sector.white? ? '5' : '3' %></div>
+  <div>Damage Dealt By Laser: <%= room.sector.white? ? '1' : '2' %></div>
+  <div>Laser Range: <%= room.sector.white? ? '4' : '8' %></div>
+<% end %>
+
