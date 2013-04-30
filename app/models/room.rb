@@ -11,18 +11,20 @@ class Room < ActiveRecord::Base
     sector.enemies.sort_by(&:distance).select{|enemy| !enemy.dead?}.first
   end
   
+  def fire_laser(power, cost = 1)
+    find_target.damage!(power) if find_target.present?
+    sector.use_power!(cost)
+  end
+  
   def push_a_button
     if upper?
       if sector.lower_room.power > 0
         if sector.red?
-          find_target.damage!(4)
-          sector.use_power!(1)
+          fire_laser 4
         elsif sector.white?
-          find_target.damage! 5
-          sector.use_power! 1          
+          fire_laser 5          
         else
-          find_target.damage! 4
-          sector.use_power! 1
+          fire_laser 4
         end
         return true
       else
@@ -31,7 +33,7 @@ class Room < ActiveRecord::Base
       
     else
       if sector.red?
-        find_target.damage! 2
+        fire_laser 2, 0
         return true
       elsif sector.white?
         if power > 0
@@ -45,7 +47,7 @@ class Room < ActiveRecord::Base
           return false
         end
       else
-        find_target.damage! 2
+        fire_laser 2, 0
         return true
       end
     end

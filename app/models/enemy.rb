@@ -17,7 +17,7 @@ class Enemy < ActiveRecord::Base
     self.save!
   end
   
-  def dead?
+  def alive?
     health > 0
   end
 end
