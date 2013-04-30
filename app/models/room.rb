@@ -8,7 +8,7 @@ class Room < ActiveRecord::Base
   end
   
   def find_target
-    sector.enemies.sort_by(&:distance).select{|enemy| !enemy.dead?}.first
+    sector.enemies.sort_by(&:distance).select{|enemy| enemy.alive?}.first
   end
   
   def fire_laser(power, cost = 1)
