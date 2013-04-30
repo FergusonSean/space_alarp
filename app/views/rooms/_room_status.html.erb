@@ -1,8 +1,8 @@
 <% room ||= @room %>
 <h1> <%= room.location %> </h1>
 
-<% if @room.upper? %>
-  <% @room.sector.enemies.each do |enemy| %>
+<% if room.upper? %>
+  <% room.sector.enemies.each do |enemy| %>
     <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
   <% end %>
 <% end %>
