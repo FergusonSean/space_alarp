@@ -1,8 +1,8 @@
 class EnemiesController < ApplicationController
   def create
-    Enemy.create!({
+    @enemy = Enemy.create!({
       :name => 'Bad Guy',
-      :sector => Sector.first,
+      :sector => Sector.find(params[:enemy][:sector_id]),
       :health => 8,
       :speed => 2,
       :distance => 13,
@@ -23,6 +23,6 @@ class EnemiesController < ApplicationController
       
     })
     
-    render :none => true
+    redirect_to :action => :show, :controller => :ships, :id => @enemy.sector.ship.id 
   end
 end

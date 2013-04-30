@@ -1,4 +1,10 @@
 <% room ||= @room %>
 <h1> <%= room.location %> </h1>
-<p>Level: <%= room.level %> </p>
+
+<% if @room.upper? %>
+  <% @room.sector.enemies.each do |enemy| %>
+    <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
+  <% end %>
+<% end %>
+
 <p><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <%= room.power %> </p>

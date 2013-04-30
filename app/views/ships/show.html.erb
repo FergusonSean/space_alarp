@@ -12,6 +12,8 @@
 
 
 <%= form_for @enemy do |f| %>
+  <%= f.label :sector_id %>
+  <%= f.select :sector_id, [['Red', @ship.red_sector.id],['White', @ship.white_sector.id],['Blue', @ship.blue_sector.id]] %>
   
   <%= f.submit "Create Enemy" %>
   
