@@ -13,6 +13,23 @@ class Sector < ActiveRecord::Base
     section
   end
   
+  def red?
+    color == 'red'
+  end
+
+  def white?
+    color == 'white'
+  end
+
+  def blue?
+    color == 'blue'
+  end
+  
+  def use_power!(amount)
+    return if lower_room.power < amount
+    lower_room.update_attributes! :power => lower_room.power - amount
+  end
+  
   def upper_room
     rooms.where(:level => 2).first
   end
