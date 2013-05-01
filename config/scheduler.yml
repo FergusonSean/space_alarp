@@ -1,0 +1,3 @@
+ClassName:
+  cron: "*/5 * * * *"
+  queue: default
