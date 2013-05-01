@@ -19,5 +19,9 @@
   <div>Maximum Reactor Energy: <%= room.sector.white? ? '5' : '3' %></div>
   <div>Damage Dealt By Laser: <%= room.sector.white? ? '1' : '2' %></div>
   <div>Laser Range: <%= room.sector.white? ? '4' : '8' %></div>
+  <% if room.sector.white? %>
+    <div>Cannisters Remaining: <%= room.ordinance %></div>
+  <% end %>
+     
 <% end %>
 
