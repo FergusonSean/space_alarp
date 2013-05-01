@@ -28,4 +28,12 @@ class Ship < ActiveRecord::Base
   def blue_sector
     sectors.where(:color => 'blue').first
   end
+  
+  def update_game!
+    ActiveRecord::Base.transaction do
+      self.sectors.map(&:enemies).flatten.select(&:alive?).each do |enemy|
+        enemy.move!
+      end
+    end
+  end
 end

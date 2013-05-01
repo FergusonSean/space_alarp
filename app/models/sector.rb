@@ -37,4 +37,17 @@ class Sector < ActiveRecord::Base
   def lower_room
     rooms.where(:level => 1).first
   end
+  
+  def damage!(amount)
+    amount -= self.upper_room.power
+    
+    if amount > 0
+      self.upper_room.update_attributes! :power => 0
+      
+      self.damage = amount
+      self.save!
+    else
+      self.upper_room.update_attributes! :power => -amount
+    end
+  end
 end

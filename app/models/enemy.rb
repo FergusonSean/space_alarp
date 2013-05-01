@@ -20,4 +20,16 @@ class Enemy < ActiveRecord::Base
   def alive?
     health > 0
   end
+  
+  def move!
+    time_passed = Time.now.utc.sec - self.last_moved_on
+    new_distance = self.distance - self.speed * time_passed
+    return if self.distance - new_distance < 1
+      
+    
+    triggered_actions = self.enemy_actions.where(:distance => [new_distance...self.distance])
+    self.distance = new_distance
+    self.save!
+    triggered_actions.trigger!
+  end
 end
