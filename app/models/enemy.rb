@@ -22,14 +22,14 @@ class Enemy < ActiveRecord::Base
   end
   
   def move!
-    time_passed = Time.now.utc.sec - self.last_moved_on
-    new_distance = self.distance - self.speed * time_passed
+    time_passed = (Time.now - (self.last_moved_on.present? ? self.last_moved_on : self.created_at))
+    new_distance = self.distance - self.speed * time_passed / 60
     return if self.distance - new_distance < 1
       
     
     triggered_actions = self.enemy_actions.where(:distance => [new_distance...self.distance])
     self.distance = new_distance
     self.save!
-    triggered_actions.trigger!
+    triggered_actions.each(&:trigger!)
   end
 end
