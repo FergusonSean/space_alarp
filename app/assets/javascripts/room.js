@@ -17,6 +17,10 @@ roomsFunctions = {
         button : 'B'
       }
     }) 
-  }
-
+  },
+  
+  refreshData : function() {
+    $('#mydiv').load("/rooms/"+roomIdForHackRefresh+" #mydiv")
+    setTimeout(roomsFunctions.refreshData , 500);
+  },
 };

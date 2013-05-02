@@ -1,13 +1,22 @@
-<!--
-supper hacky workaround.
 <head>
+
+<script type="text/javascript">
+roomIdForHackRefresh = <%= @room.id %>
+
+$(document).ready(function() {
+  setTimeout(roomsFunctions.refreshData, 500);
+});
+</script>
+<!--
   <meta http-equiv="refresh" content="2" />
-</head>
 -->
+</head>
 
 
 <div class="info_column">
+<div id="mydiv">
 <%= render :partial => 'rooms/room_status' %>
+</div>
 
 <br/>
 <%= render :partial => 'rooms/room_tips' %>

@@ -37,7 +37,7 @@ class Room < ActiveRecord::Base
         return true
       elsif sector.white?
         if power > 0
-          targets = sector.ship.sectors.map{|s| s.find_target }
+          targets = sector.ship.sectors.map{|s| s.lower_room.find_target}.compact
           targets.select{|t| t.distance < 8}.each do |target|
             target.damage! 1   
           end
