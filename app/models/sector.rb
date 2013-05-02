@@ -1,5 +1,5 @@
 class Sector < ActiveRecord::Base
-  attr_accessible :color
+  attr_protected
   
   has_many :rooms
   has_many :enemies
@@ -8,7 +8,19 @@ class Sector < ActiveRecord::Base
   
   def self.new_section(color)
     section = Sector.new(:color => color)
-    section.rooms = [Room.new({ :level => 2, :power => 1}), Room.new({ :level => 1, :power => (color == 'white' ? 3 : 2)})]
+    section.rooms = [
+      Room.new({ 
+                 :level => 2, 
+                 :power => 1, 
+                 :maximum_power => (color == 'white' ? 3 : 2)
+               }), 
+      Room.new({ 
+                 :level => 1, 
+                 :power => (color == 'white' ? 3 : 2),
+                 :maximum_power => (color == 'white' ? 5 : 3), 
+                 :ordinance => (color == 'white' ? 3 : 0), 
+               })
+    ]
     
     section
   end

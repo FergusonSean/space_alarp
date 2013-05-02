@@ -7,7 +7,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     button_letter = params[:button]
     
-    render :js => @room.push_button(button_letter)
+    render :js => @room.push_button(button_letter) ? 'alert("success");' : 'alert("failure");'
   end
 
 end

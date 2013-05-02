@@ -31,7 +31,7 @@ class Ship < ActiveRecord::Base
   
   def update_game!
     ActiveRecord::Base.transaction do
-      self.sectors.map(&:enemies).flatten.select(&:alive?).each do |enemy|
+      self.sectors.map(&:enemies).flatten.select(&:alive?).select{|en| en.distance > 0}.each do |enemy|
         enemy.move!
       end
     end

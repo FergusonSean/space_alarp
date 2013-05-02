@@ -1,5 +1,5 @@
 class Room < ActiveRecord::Base
-  attr_accessible :level, :power, :sector_id
+  attr_protected
   
   belongs_to :sector
   
@@ -53,7 +53,38 @@ class Room < ActiveRecord::Base
     end
   end
   
+  def power_shield!
+    pull_power_from(self.sector.lower_room)
+  end
+  
+  def pull_power_from(room)
+    power_to_pull = [self.maximum_power - self.power, room.power].min
+    self.power += power_to_pull
+    self.save!
+    room.power -= power_to_pull
+    room.save
+  end
+  
+  def pull_power!
+    pull_power_from(sector.ship.white_sector.lower_room)
+  end
+  
+  def generate_power!
+    self.power = self.maximum_power if ordinance > 0
+    self.ordinance -= 1
+    self.save
+  end
+  
   def push_b_button
+    if upper?
+      power_shield!
+    else
+      if sector.white?
+        generate_power!
+      else
+        pull_power!
+      end
+    end
     
   end
   
