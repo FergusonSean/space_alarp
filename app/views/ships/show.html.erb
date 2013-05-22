@@ -12,9 +12,19 @@
 
 
 <%= form_for @enemy do |f| %>
+
   <%= f.label :sector_id %>
   <%= f.select :sector_id, [['Red', @ship.red_sector.id],['White', @ship.white_sector.id],['Blue', @ship.blue_sector.id]] %>
   
+  <%= f.label :start_health %>
+  <%= f.text_field :start_health, :size => 3, :value => 8 %>
+
+  <%= f.label :start_distance %>
+  <%= f.text_field :start_distance, :size => 3, :value => 13 %>
+
+  <%= f.label :start_speed %>
+  <%= f.text_field :start_speed, :size => 3, :value => 2 %>
+
   <%= f.submit "Create Enemy" %>
   
 <% end %>

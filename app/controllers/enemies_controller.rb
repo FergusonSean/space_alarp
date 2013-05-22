@@ -3,9 +3,9 @@ class EnemiesController < ApplicationController
     @enemy = Enemy.create!({
       :name => 'Bad Guy',
       :sector => Sector.find(params[:enemy][:sector_id]),
-      :health => 8,
-      :speed => 2,
-      :distance => 13,
+      :health => params[:enemy][:start_health],
+      :speed => params[:enemy][:start_speed],
+      :distance => params[:enemy][:start_distance],
       :enemy_actions_attributes => [
         {
           :distance => 10,
