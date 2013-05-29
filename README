@@ -4,6 +4,10 @@ three tabs are needed one to run the server via:
 
 rails server
 
+next make sure you have a local redis server running:
+
+redis-server
+
 one to run the resque worker via:
 
 QUEUE=* rake environment resque:work
