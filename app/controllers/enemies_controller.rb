@@ -1,11 +1,8 @@
 class EnemiesController < ApplicationController
   def create
-    @enemy = Enemy.create!({
-      :name => 'Bad Guy',
+    @enemy = Enemy.create!(params[:enemy].merge({
+      :name => (params[:health] > 8 ? 'REALLY BAD GUY' : 'bad guy'),
       :sector => Sector.find(params[:enemy][:sector_id]),
-      :health => params[:enemy][:start_health],
-      :speed => params[:enemy][:start_speed],
-      :distance => params[:enemy][:start_distance],
       :enemy_actions_attributes => [
         {
           :distance => 10,
@@ -21,7 +18,7 @@ class EnemiesController < ApplicationController
         }
       ]
       
-    })
+    }))
     
     redirect_to :action => :show, :controller => :ships, :id => @enemy.sector.ship.id 
   end

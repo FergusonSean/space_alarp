@@ -34,6 +34,12 @@ class Ship < ActiveRecord::Base
       self.sectors.map(&:enemies).flatten.select(&:alive?).select{|en| en.distance > 0}.each do |enemy|
         enemy.move!
       end
+
+      white_sector.lower_room.process_b
+      rooms = sectors.map(&:rooms).flatten.shuffle
+      rooms.each(&:process_b)
+      rooms.shuffle.each(&:process_a)
+
     end
   end
 end

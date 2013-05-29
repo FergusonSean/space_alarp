@@ -21,6 +21,6 @@ roomsFunctions = {
   
   refreshData : function() {
     $('#mydiv').load("/rooms/"+roomIdForHackRefresh+" #mydiv")
-    setTimeout(roomsFunctions.refreshData , 500);
+    setTimeout(roomsFunctions.refreshData , 2000);
   },
 };

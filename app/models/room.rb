@@ -17,6 +17,11 @@ class Room < ActiveRecord::Base
   end
   
   def push_a_button
+    self.update_attributes! :a_button_pressed => true
+  end
+
+  def process_a
+    return unless a_button_pressed?
     if upper?
       if sector.lower_room.power > 0
         if sector.red?
@@ -26,15 +31,10 @@ class Room < ActiveRecord::Base
         else
           fire_laser 4
         end
-        return true
-      else
-        return false
       end
-      
     else
       if sector.red?
         fire_laser 2, 0
-        return true
       elsif sector.white?
         if power > 0
           targets = sector.ship.sectors.map{|s| s.lower_room.find_target}.compact
@@ -42,15 +42,13 @@ class Room < ActiveRecord::Base
             target.damage! 1   
           end
           sector.use_power! 1
-          return true
-        else
-          return false
         end
       else
         fire_laser 2, 0
-        return true
       end
     end
+
+    update_attributes! :a_button_pressed => false
   end
   
   def power_shield!
@@ -68,7 +66,7 @@ class Room < ActiveRecord::Base
   def pull_power!
     pull_power_from(sector.ship.white_sector.lower_room)
   end
-  
+
   def generate_power!
     self.power = self.maximum_power if ordinance > 0
     self.ordinance -= 1
@@ -76,6 +74,10 @@ class Room < ActiveRecord::Base
   end
   
   def push_b_button
+    self.update_attributes! :b_button_pressed => true
+  end
+  def process_b
+    return unless b_button_pressed?
     if upper?
       power_shield!
     else
@@ -85,7 +87,7 @@ class Room < ActiveRecord::Base
         pull_power!
       end
     end
-    
+    update_attributes! :b_button_pressed => false
   end
   
   def location
