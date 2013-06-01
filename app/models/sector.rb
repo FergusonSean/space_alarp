@@ -18,7 +18,7 @@ class Sector < ActiveRecord::Base
                  :level => 1, 
                  :power => (color == 'white' ? 3 : 2),
                  :maximum_power => (color == 'white' ? 5 : 3), 
-                 :ordinance => (color == 'white' ? 3 : 0), 
+                 :ordinance => (color == 'white' ? 5 : 0),
                })
     ]
     
@@ -56,7 +56,7 @@ class Sector < ActiveRecord::Base
     if amount > 0
       self.upper_room.update_attributes! :power => 0
       
-      self.damage = amount
+      self.damage += amount
       self.save!
     else
       self.upper_room.update_attributes! :power => -amount

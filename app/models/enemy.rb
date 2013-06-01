@@ -22,8 +22,7 @@ class Enemy < ActiveRecord::Base
   end
   
   def move!
-    time_passed = (Time.now - (self.last_moved_on.present? ? self.last_moved_on : self.created_at))
-    new_distance = self.distance - self.speed * time_passed / 60
+    new_distance = self.distance - self.speed
     return if self.distance - new_distance < 1
       
     
