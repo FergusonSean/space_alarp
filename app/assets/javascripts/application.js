@@ -13,3 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+SpaceAlarp = {
+
+    refreshData : function(path) {
+      $('#dataDiv').load(path + " #dataDiv")
+      setTimeout(function(){ SpaceAlarp.refreshData(path); }, 2000);
+    }
+
+}

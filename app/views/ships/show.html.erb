@@ -1,3 +1,11 @@
+<% content_for :head do %>
+<script type="text/javascript">
+$(document).ready(function() {
+  setTimeout(function(){ SpaceAlarp.refreshData("<%= ship_path(@ship) %>"); }, 2000);
+});
+</script>
+<% end %>
+
 <h1>Mission <%= @ship.id %></h1>
 
 
@@ -36,64 +44,65 @@
     <%= f.submit "Create Enemy" %>
   </div>
 <% end %>
+<div id="dataDiv">
+  <table class="ship_table">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.upper_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.red_sector.upper_room) %>
+        </td>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.upper_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.white_sector.upper_room) %>
+        </td>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.upper_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.blue_sector.upper_room) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.lower_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.red_sector.lower_room) %>
+        </td>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.lower_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.white_sector.lower_room) %>
+        </td>
+        <td>
+          <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.lower_room} %> <br/>
+          <%= link_to "Go to room",	room_path(@ship.blue_sector.lower_room) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Damage : <%= @ship.red_sector.damage %>
+        </td>
+        <td>
+          Damage : <%= @ship.white_sector.damage %>
+        </td>
+        <td>
+          Damage : <%= @ship.blue_sector.damage %>
+        </td>
+      </tr>
+    </tbody>
 
-<table class="ship_table">
-  <thead>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.upper_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.red_sector.upper_room) %>
-      </td>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.upper_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.white_sector.upper_room) %>
-      </td>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.upper_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.blue_sector.upper_room) %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.red_sector.lower_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.red_sector.lower_room) %>
-      </td>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.white_sector.lower_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.white_sector.lower_room) %>
-      </td>
-      <td>
-        <%= render :partial => 'rooms/room_status', :locals => { :room => @ship.blue_sector.lower_room} %> <br/>
-        <%= link_to "Go to room",	room_path(@ship.blue_sector.lower_room) %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        Damage : <%= @ship.red_sector.damage %>
-      </td>
-      <td>
-        Damage : <%= @ship.white_sector.damage %>
-      </td>
-      <td>
-        Damage : <%= @ship.blue_sector.damage %>
-      </td>
-    </tr>
-  </tbody>
-  
-</table>
+  </table>
 
-<div class="killed_enemies_title">Killed Enemies:</div>
-<% any_dead_ships = false %>
-<% @ship.sectors.each do |sector| %>
-  <% sector.enemies.each do |enemy| %>
-    <% if not enemy.alive? %>
-	  <div><%= enemy.name %></div>
-      <% any_dead_ships = true %>
+  <div class="killed_enemies_title">Killed Enemies:</div>
+  <% any_dead_ships = false %>
+  <% @ship.sectors.each do |sector| %>
+    <% sector.enemies.each do |enemy| %>
+      <% if not enemy.alive? %>
+      <div><%= enemy.name %></div>
+        <% any_dead_ships = true %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-<% if any_dead_ships == false %>
-  <div>None</div>
-<% end %>
+  <% if any_dead_ships == false %>
+    <div>None</div>
+  <% end %>
+</div>
