@@ -1,10 +1,15 @@
+require 'thread'
+
 class MinHeap
   def initialize
     @elems = []
+    @mutex = Mutex.new
   end
 
   def size
-    @elems.size
+    @mutex.synchronize do
+      @elems.size
+    end
   end
 
   alias_method :length, :size
@@ -19,47 +24,53 @@ class MinHeap
   end
 
   def push(elem)
-    @elems.push elem
-    index = size - 1
-    parent = parent_of_index index
-    while parent >= 0 and @elems[parent] > @elems[index]
-      tmp = @elems[parent]
-      @elems[parent] = @elems[index]
-      @elems[index] = tmp
-
-      index = parent
+    @mutex.synchronize do
+      @elems.push elem
+      index = size - 1
       parent = parent_of_index index
+      while parent >= 0 and @elems[parent] > @elems[index]
+        tmp = @elems[parent]
+        @elems[parent] = @elems[index]
+        @elems[index] = tmp
+
+        index = parent
+        parent = parent_of_index index
+      end
     end
   end
 
   alias_method :<<, :push
 
   def pop
-    return nil if empty?
-    return @elems.pop if @elems.size == 1
+    @mutex.synchronize do
+      return nil if empty?
+      return @elems.pop if @elems.size == 1
 
-    min = @elems.first
-    @elems[0] = @elems.pop
+      min = @elems.first
+      @elems[0] = @elems.pop
 
-    index = 0
-    leftchild = 1
+      index = 0
+      leftchild = 1
 
-    while leftchild < size
-      smallerchild = (leftchild + 1 < size and @elems[leftchild] > @elems[leftchild+1]) ? leftchild+1 : leftchild
-      break if @elems[smallerchild] > @elems[index]
+      while leftchild < size
+        smallerchild = (leftchild + 1 < size and @elems[leftchild] > @elems[leftchild+1]) ? leftchild+1 : leftchild
+        break if @elems[smallerchild] > @elems[index]
 
-      tmp = @elems[smallerchild]
-      @elems[smallerchild] = @elems[index]
-      @elems[index] = tmp
+        tmp = @elems[smallerchild]
+        @elems[smallerchild] = @elems[index]
+        @elems[index] = tmp
 
-      index = smallerchild
-      leftchild = 2 * index + 1
+        index = smallerchild
+        leftchild = 2 * index + 1
+      end
+
+      min
     end
-
-    min
   end
 
   def peek
-    return @elems.first
+    @mutex.synchronize do
+      return @elems.first
+    end
   end
 end
