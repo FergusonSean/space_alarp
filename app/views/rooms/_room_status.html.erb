@@ -4,7 +4,7 @@
 <% if room.upper? %>
   <% room.sector.enemies.each do |enemy| %>
     <% if enemy.alive? %>
-      <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
+      <%= render :partial => 'enemies/enemy', :locals => {:enemy => enemy} %>
     <% end %>
   <% end %>
 <% end %>
@@ -22,6 +22,6 @@
   <% if room.sector.white? %>
     <div>Cannisters Remaining: <%= room.ordinance %></div>
   <% end %>
-     
+
 <% end %>
 

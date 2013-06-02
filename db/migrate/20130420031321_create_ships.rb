@@ -4,7 +4,7 @@ class CreateShips < ActiveRecord::Migration
 
       t.timestamps
     end
-    
+
     add_column :sectors, :ship_id, :integer
   end
 end

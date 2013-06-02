@@ -1,45 +1,45 @@
-class Ship < ActiveRecord::Base
-  # attr_accessible :title, :body
-  
-  has_many :sectors
-  
+class Ship < SpaceAlarpModel
+  attr_accessor :mission_start, :sectors, :white_sector, :red_sector, :blue_sector, :game
+
   def self.build_ship(params = {})
     ship = Ship.new
-    
-    ship.sectors << [Sector.new_section("blue"), Sector.new_section("white"), Sector.new_section("red")]    
-    ship.save!
-    
+
+    @blue_sector = Sector.new_section("blue")
+    @white_sector = Sector.new_section("white")
+    @red_sector = Sector.new_section("red")
+
     ship
   end
-  
-  def start_mission! 
-    self.mission_start = DateTime.now
-	self.save!
+
+  def id
+    game.id
   end
 
-  def red_sector
-    sectors.where(:color => 'red').first
+  def id=(idd)
+    game.id = idd
   end
-  
-  def white_sector
-    sectors.where(:color => 'white').first
-  end
-  
-  def blue_sector
-    sectors.where(:color => 'blue').first
-  end
-  
-  def update_game!
-    ActiveRecord::Base.transaction do
-      self.sectors.map(&:enemies).flatten.select(&:alive?).select{|en| en.distance > 0}.each do |enemy|
-        enemy.move!
-      end
 
-      white_sector.lower_room.process_b
-      rooms = sectors.map(&:rooms).flatten.shuffle
-      rooms.each(&:process_b)
-      rooms.shuffle.each(&:process_a)
+  def upper_white
+    white_sector.upper_room
+  end
 
-    end
+  def lower_white
+    white_sector.lower_room
+  end
+
+  def upper_red
+    red_sector.upper_room
+  end
+
+  def lower_red
+    red_sector.lower_room
+  end
+
+  def upper_blue
+    blue_sector.upper_room
+  end
+
+  def lower_blue
+    blue_sector.lower_room
   end
 end

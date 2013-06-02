@@ -1,6 +1,4 @@
 SpaceAlarp::Application.routes.draw do
-  
-  get "enemies/create"
 
   resources :ships, :only => [:new, :show, :create] do
     collection do
@@ -10,60 +8,11 @@ SpaceAlarp::Application.routes.draw do
       post :start_mission
     end
   end
-  
+
+  match "/:id/:location" => "rooms#show", :as => :room
+  match "/:id/:location/push_button" => "rooms#push_button", :as => :room_push_button
+
   resources :enemies, :only => [:create]
-
-  resources :rooms, :only => [:show] do
-    member do
-      post :push_button
-    end
-  end
-  # the priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # keep in mind you can assign values other than :controller and :action
-
-  # sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # this route can be invoked with purchase_url(:id => product.id)
-
-  # sample resource route (maps http verbs to controller actions automatically):
-  #   resources :products
-
-  # sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # sample resource route within a namespace:
-  #   namespace :admin do
-  #     # directs /admin/products/* to admin::productscontroller
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 
   # you can have the root of your site routed with "root"
   # just remember to delete public/index.html.

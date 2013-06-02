@@ -52,7 +52,7 @@ class MinHeapTest < ActiveSupport::TestCase
     until @heap.empty?
       result << @heap.pop
     end
-  
+
     assert_equal elems.sort, result
   end
 end

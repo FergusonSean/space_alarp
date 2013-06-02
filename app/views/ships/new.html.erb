@@ -41,12 +41,12 @@ for the previous crew. -->
 <h1>Ready to start a new mission?</h1>
 <%= form_for @ship do |f| %>
 
-<%= f.submit 'Start Mission' %>
+  <%= f.submit 'Start Mission' %>
 <% end %>
 
 <h1>Join an existing mission?</h1>
-<%= form_for @ship, :url => join_ships_path do |f| %>
-<%= f.label :id, "Mission Number:" %>
-<%= f.text_field :id, :size => 4 %>
-<%= f.submit 'Join' %>
+<ul>
+<% MemoryStore.games.each do |game| %>
+  <li>Mission <%= game.id %>: <%= link_to "Join Now", ship_path(game.ship.id) %></li>
 <% end %>
+</ul>

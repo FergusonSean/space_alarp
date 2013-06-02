@@ -58,5 +58,11 @@ module SpaceAlarp
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Space alarp game settings
+    config.button_cooldown_seconds = 45
+    config.effect_time_seconds = 45
+    config.buttons_cooldown_seperately = true
+
   end
 end
