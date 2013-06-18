@@ -50,13 +50,18 @@ class Sector < ActiveRecord::Base
     rooms.where(:level => 1).first
   end
   
-  def damage!(amount)
+  def damage!(amount, options={})
+    options = {
+      :double_damage_through_shields => false
+    }.merge options
     amount -= self.upper_room.power
     
     if amount > 0
       self.upper_room.update_attributes! :power => 0
       
       self.damage += amount
+      self.damage += amount if options[:double_damage_through_shields]
+
       self.save!
     else
       self.upper_room.update_attributes! :power => -amount

@@ -1,12 +1,11 @@
 class Enemy < ActiveRecord::Base
   attr_protected
-  has_many :enemy_actions
   belongs_to :sector
-  accepts_nested_attributes_for :enemy_actions
  
   def initialize(arguments = {}, options = {})
     super
     regen_shields
+    name = self.class.name.titleize unless arguments.include? :name
   end
 
   def damage!(amount)
@@ -32,9 +31,20 @@ class Enemy < ActiveRecord::Base
     new_distance = self.distance - self.speed
     return if self.distance - new_distance < 1
 
-    triggered_actions = self.enemy_actions.where(:distance => [new_distance...self.distance])
+    action_distances_array = action_distances.split(',').map(&:to_i)
+    action_distances_array.each do |threshold|
+      next unless threshold.between?(new_distance, self.distance-1)
+
+      if threshold == action_distances.first
+        enemy_action_x
+      elsif threshold == action_distances.last
+        enemy_action_z
+      else
+        enemy_action_y
+      end
+    end
+
     self.distance = new_distance
     self.save!
-    triggered_actions.each(&:trigger!)
   end
 end
