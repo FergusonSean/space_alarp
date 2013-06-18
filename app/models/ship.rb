@@ -3,7 +3,7 @@ class Ship < ActiveRecord::Base
   
   has_many :sectors
   
-  def self.build_ship(params = {})
+  def self.build_ship(options = {})
     ship = Ship.new
     
     ship.sectors << [Sector.new_section("blue"), Sector.new_section("white"), Sector.new_section("red")]    
@@ -32,6 +32,7 @@ class Ship < ActiveRecord::Base
   def update_game!
     ActiveRecord::Base.transaction do
       self.sectors.map(&:enemies).flatten.select(&:alive?).select{|en| en.distance > 0}.each do |enemy|
+        enemy.regen_shields
         enemy.move!
       end
 
