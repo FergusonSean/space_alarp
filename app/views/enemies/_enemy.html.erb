@@ -1,8 +1,8 @@
 <% enemy ||= @enemy %>
 
-<div class="enemy_stats">
+<div id="enemy-<%= enemy.id %>" class="enemy_stats">
   <div class="enemy_name"><%= enemy.name %> </div>
-  <div class="enemy_stat">Health: <%= enemy.health %></div>
-  <div class="enemy_stat">Speed: <%= enemy.speed %></div>
-  <div class="enemy_stat">Distance: <%= enemy.distance%></div>
+  <div class="enemy_stat enemy_health">Health: <%= enemy.health %></div>
+  <div class="enemy_stat enemy_speed">Speed: <%= enemy.speed %></div>
+  <div class="enemy_stat enemy_distance">Distance: <%= enemy.distance%></div>
 </div>

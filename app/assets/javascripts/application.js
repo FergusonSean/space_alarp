@@ -19,6 +19,9 @@ SpaceAlarp = {
     refreshData : function(path) {
       $('#dataDiv').load(path + " #dataDiv")
       setTimeout(function(){ SpaceAlarp.refreshData(path); }, 2000);
-    }
+    },
 
+    playSoundEffect : function(name) {
+      $("#"+name).get(0).play();
+    }
 }

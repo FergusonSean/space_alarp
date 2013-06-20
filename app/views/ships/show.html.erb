@@ -2,6 +2,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   setTimeout(function(){ SpaceAlarp.refreshData("<%= ship_path(@ship) %>"); }, 2000);
+  $('#music_file').get(0)
 });
 </script>
 <% end %>
@@ -25,21 +26,11 @@ $(document).ready(function() {
     <%= f.select :sector_id, [['Red', @ship.red_sector.id],['White', @ship.white_sector.id],['Blue', @ship.blue_sector.id]] %>
   </div>
   <div>
-    <%= f.label :health %>
-    <%= f.text_field :health, :size => 3, :value => 6 %>
+    <%= f.label :type %>
+    <%= f.select :type, option_for_enemy_type_select %>
   </div>
-  <div>
-    <%= f.label :max_shield_strength %>
-    <%= f.text_field :max_shield_strength, :size => 3, :value => 1 %>
-  </div>
-  <div>
-    <%= f.label :distance %>
-    <%= f.text_field :distance, :size => 3, :value => 13 %>
-  </div>
-  <div>
-    <%= f.label :speed %>
-    <%= f.text_field :speed, :size => 3, :value => 2 %>
-  </div>
+
+
   <div>
     <%= f.submit "Create Enemy" %>
   </div>

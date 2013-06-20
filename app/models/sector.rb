@@ -56,7 +56,7 @@ class Sector < ActiveRecord::Base
     }.merge options
     amount -= self.upper_room.power
     
-    if amount > 0
+    if amount >= 0
       self.upper_room.update_attributes! :power => 0
       
       self.damage += amount

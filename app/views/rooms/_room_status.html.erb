@@ -2,14 +2,14 @@
 <h1> <%= room.location %> </h1>
 
 <% if room.upper? %>
-  <% room.sector.enemies.each do |enemy| %>
+  <% room.enemies.each do |enemy| %>
     <% if enemy.alive? %>
       <%= render :partial => 'enemies/enemy', :locals => { :enemy => enemy} %>
     <% end %>
   <% end %>
 <% end %>
 
-<div><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <%= room.power %> </div>
+<div><%= room.level == 2 ? 'Shield Strength' : 'Reactor Energy' %>: <span id="room-power"><%= room.power %><span> </div>
 
 <% if room.upper? %>
   <div>Maximum Shield Strength: <%= room.sector.white? ? '3' : '2' %></div>

@@ -2,6 +2,8 @@ class Room < ActiveRecord::Base
   attr_protected
   
   belongs_to :sector
+
+  delegate :enemies, :damage, :to => :sector
   
   def push_button(letter)
     letter == 'A' ? push_a_button : push_b_button
@@ -96,5 +98,12 @@ class Room < ActiveRecord::Base
   
   def upper?
     level == 2
+  end
+
+  def to_json(options = {})
+    super({
+            :methods => :damage,
+            :include => :enemies
+          }.merge(options))
   end
 end
