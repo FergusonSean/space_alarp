@@ -22,7 +22,7 @@ class ShipsController < ApplicationController
 
   def start_mission
     @ship = Ship.find(params[:id])
-	@ship.start_mission!
-	render :text => "OK"
+    @ship.start_mission!
+    render :text => "OK"
   end
 end

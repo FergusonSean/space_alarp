@@ -29,6 +29,7 @@ class Enemy < ActiveRecord::Base
 
   def regen_shields
     self.current_shield_strength = self.max_shield_strength
+    self.save!
   end
   
   def alive?
@@ -40,19 +41,14 @@ class Enemy < ActiveRecord::Base
     return if self.distance - new_distance < 1
 
     action_distances_array = action_distances.split(',').map(&:to_i)
-    pp action_distances_array
     action_distances_array.each do |threshold|
-      pp threshold
       next unless threshold.between?(new_distance, self.distance-1)
 
       if threshold == action_distances_array.first
-        puts "trying x"
         enemy_action_x
       elsif threshold == action_distances_array.last
-        puts "trying z"
         enemy_action_z
       else
-        puts "trying y"
         enemy_action_y
       end
     end

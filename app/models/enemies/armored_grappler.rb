@@ -14,7 +14,7 @@ class Enemies::ArmoredGrappler < Enemy
   end
 
   def enemy_action_y
-    self.health += 1
+    self.update_attributes! :health => self.health + 1
   end
 
   def enemy_action_z

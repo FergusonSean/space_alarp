@@ -1,7 +1,8 @@
 <% content_for :head do %>
 <script type="text/javascript">
 $(document).ready(function() {
-  setInterval(function(){ roomsFunctions.updateRoomFields(<%= @room.id %>); }, 2000);
+//  setInterval(function(){ roomsFunctions.updateRoomFields(<%= @room.id %>); }, 2000);
+  setTimeout(function(){ SpaceAlarp.refreshData("<%= room_path(@room) %>"); }, 2000);
 });
 </script>
 <% end %>

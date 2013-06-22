@@ -2,7 +2,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
   setTimeout(function(){ SpaceAlarp.refreshData("<%= ship_path(@ship) %>"); }, 2000);
-  $('#music_file').get(0)
 });
 </script>
 <% end %>
@@ -19,8 +18,7 @@ $(document).ready(function() {
   <%= button_to_function "Start The Mission!", "shipsFunctions.SendAjaxRequestToStartMission('#{start_mission_ship_path @ship}');" %>
 <% end %>
 
-
-<%= form_for @enemy do |f| %>
+<%= form_for @enemy, :url => enemies_path, :method => :post do |f| %>
   <div>
     <%= f.label :sector_id %>
     <%= f.select :sector_id, [['Red', @ship.red_sector.id],['White', @ship.white_sector.id],['Blue', @ship.blue_sector.id]] %>
