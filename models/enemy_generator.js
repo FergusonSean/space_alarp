@@ -1,5 +1,5 @@
 var event_do_dmg = function(damage) {
-  return function(enemy, sector) {
+  return function(ship, enemy, sector) {
     console.log("DAMAGE! " + damage + " on " + sector);
   }
 }
@@ -16,27 +16,41 @@ var gen_enemy = function(name, hp, shields, speed, x, y, z) {
     "z": (typeof z !== 'undefined' ? z : null),
   }
   enemy["alive"] = function() { return enemy.hp > 0; }
-  enemy["advance"] = function(sector) {
-    if (!enemy.alive()) {
+  enemy["won"] = function() { return enemy.distance <= 0; }
+  enemy["advance"] = function(ship, sector) {
+    if (!enemy.alive() || enemy.won()) {
+      enemy.remove_from_sector(sector);
       return;
     }
+    
     old_dist = enemy.distance;
     enemy.distance -= speed;
     if (old_dist > 12 && 12 >= enemy.distance) {
-      enemy.x(enemy, sector);
+      enemy.x(ship, sector, enemy);
     } else if (old_dist > 6 && 6 >= enemy.distance) {
-      enemy.y(enemy, sector);
+      enemy.y(ship, sector, enemy);
     } else if (enemy.distance <= 0) {
-      enemy.z(enemy, sector);
+      enemy.z(ship, sector, enemy);
+      enemy.remove_from_sector(sector);
+      return;
     }
+    
     setTimeout(45000, function() {
-      enemy.advance(sector);
+      enemy.advance(ship, sector);
     });
   }
-  enemy["launch"] = function(sector) {
+  enemy["remove_from_sector"] = function(sector) {
+    index = sector.enemies.indexOf(enemy);
+    if (index >= 0) {
+      sector.enemies.splice(index, 1);
+    }
+  }
+  enemy["launch"] = function(ship, sector) {
     enemy["distance"] = 20;
+    sector.enemies << enemy;
+
     setTimeout(45000, function() {
-      enemy.advance(enemy, sector);
+      enemy.advance(ship, sector);
     });
   }
 }
