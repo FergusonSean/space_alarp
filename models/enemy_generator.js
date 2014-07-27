@@ -4,6 +4,10 @@ var genDoDamageHandler = function(damage) {
   }
 }
 
+var sectorLength = 20;
+var distanceToX = 12;
+var distanceToY = 6;
+
 var genEnemy = function(name, hp, shields, speed, x, y, z) {
   enemy = {
     "name": name,
@@ -24,20 +28,16 @@ var genEnemy = function(name, hp, shields, speed, x, y, z) {
     }
     
     oldDist = enemy.distance;
-    enemy.distance -= speed;
-    if (oldDist > 12 && 12 >= enemy.distance) {
+    enemy.distance -= 1;
+    if (oldDist > distanceToX && distanceToX >= enemy.distance) {
       enemy.x(ship, sector, enemy);
-    } else if (oldDist > 6 && 6 >= enemy.distance) {
+    } else if (oldDist > distanceToY && distanceToY >= enemy.distance) {
       enemy.y(ship, sector, enemy);
     } else if (enemy.distance <= 0) {
       enemy.z(ship, sector, enemy);
       enemy.removeFromSector(sector);
       return;
     }
-    
-    setTimeout(45000, function() {
-      enemy.advance(ship, sector);
-    });
   }
   enemy["removeFromSector"] = function(sector) {
     index = sector.enemies.indexOf(enemy);
@@ -45,13 +45,16 @@ var genEnemy = function(name, hp, shields, speed, x, y, z) {
       sector.enemies.splice(index, 1);
     }
   }
-  enemy["launch"] = function(ship, sector) {
-    enemy["distance"] = 20;
+  enemy["assignSector"] = function(ship, sector) {
+    enemy["distance"] = sectorLength;
     sector.enemies << enemy;
-
-    setTimeout(45000, function() {
-      enemy.advance(ship, sector);
-    });
+  }
+  enemy["launch"] = function(ship, sector) {
+    for(var i = 1; i <= sectorLength; i++) {
+      setTimeout((45000*i)/enemy.speed, function() {
+        enemy.advance(ship, sector);
+      });
+    }
   }
 }
 
