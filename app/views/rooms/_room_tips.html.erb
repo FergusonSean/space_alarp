@@ -1,9 +1,0 @@
-<% room ||= @room %>
-<% if room.upper? %>
-  <div>Button A: Fire The Laser.</div>
-  <div>Button B: Charge The Shield.</div>
-<% else %>
-  <div>Button A: Fire The <%= room.sector.white? ? 'Back' : 'Side' %> Laser.</div>
-  <div>Button B: <%= room.sector.white? ? 'Use Canister To Refil Reactor Energy' : 'Pull Reactor Energy From The White Sector' %>.</div>
-<% end %>
-

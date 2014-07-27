@@ -1,3 +1,0 @@
-UpdateGameState:
-  cron: '*/30 * * * * *'
-  queue: default
