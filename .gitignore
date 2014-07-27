@@ -13,5 +13,6 @@
 
 *.swp
 
+node_modules
 /.idea
 /.idea/*.*

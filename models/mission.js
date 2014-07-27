@@ -1,3 +1,4 @@
+var ship = {}
 
 var add_sector = function(base, name) {
   var upper_room = {};
@@ -18,23 +19,27 @@ var add_sector = function(base, name) {
   return sector;
 }
 
-global.base = {
-  initialize: function() {
+exports.mission_data = function() {
+  
+}
+
+exports.initialize = function() {
+  initialize = function() {
     sectors = [];
-    add_sector(this, "red");
-    add_sector(this, "white");
-    add_sector(this, "blue");
+    add_sector(ship, "red");
+    add_sector(ship, "white");
+    add_sector(ship, "blue");
 
     console.log('done with sectors');
-    console.log(this);
-    this.white_lower.batt_capacity = 5;
-    this.white_lower.batt = 3;
-    this.white_lower.cannisters = 3;
-    this.white_lower.btna = function() {
+    console.log(ship);
+    ship.white_lower.batt_capacity = 5;
+    ship.white_lower.batt = 3;
+    ship.white_lower.cannisters = 3;
+    ship.white_lower.btna = function() {
       console.log("pulse");
     }
-    
-    this.white_upper.btna = function() {
+
+    ship.white_upper.btna = function() {
       console.log("gun");
     }
   }
