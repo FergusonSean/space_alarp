@@ -1,37 +1,37 @@
-var event_do_dmg = function(damage) {
+var genDoDamageHandler = function(damage) {
   return function(ship, enemy, sector) {
     console.log("DAMAGE! " + damage + " on " + sector);
   }
 }
 
-var gen_enemy = function(name, hp, shields, speed, x, y, z) {
+var genEnemy = function(name, hp, shields, speed, x, y, z) {
   enemy = {
     "name": name,
     "hp": hp,
-    "max_shields": shields,
+    "maxShields": shields,
     "shields": shields,
     "speed": speed,
-    "x": (typeof x !== 'undefined' ? x : null),
-    "y": (typeof y !== 'undefined' ? y : null),
-    "z": (typeof z !== 'undefined' ? z : null),
+    "x": (typeof x !== 'undefined' ? x : function(){}),
+    "y": (typeof y !== 'undefined' ? y : function(){}),
+    "z": (typeof z !== 'undefined' ? z : function(){})
   }
   enemy["alive"] = function() { return enemy.hp > 0; }
   enemy["won"] = function() { return enemy.distance <= 0; }
   enemy["advance"] = function(ship, sector) {
     if (!enemy.alive() || enemy.won()) {
-      enemy.remove_from_sector(sector);
+      enemy.removeFromSector(sector);
       return;
     }
     
-    old_dist = enemy.distance;
+    oldDist = enemy.distance;
     enemy.distance -= speed;
-    if (old_dist > 12 && 12 >= enemy.distance) {
+    if (oldDist > 12 && 12 >= enemy.distance) {
       enemy.x(ship, sector, enemy);
-    } else if (old_dist > 6 && 6 >= enemy.distance) {
+    } else if (oldDist > 6 && 6 >= enemy.distance) {
       enemy.y(ship, sector, enemy);
     } else if (enemy.distance <= 0) {
       enemy.z(ship, sector, enemy);
-      enemy.remove_from_sector(sector);
+      enemy.removeFromSector(sector);
       return;
     }
     
@@ -39,7 +39,7 @@ var gen_enemy = function(name, hp, shields, speed, x, y, z) {
       enemy.advance(ship, sector);
     });
   }
-  enemy["remove_from_sector"] = function(sector) {
+  enemy["removeFromSector"] = function(sector) {
     index = sector.enemies.indexOf(enemy);
     if (index >= 0) {
       sector.enemies.splice(index, 1);
@@ -55,15 +55,15 @@ var gen_enemy = function(name, hp, shields, speed, x, y, z) {
   }
 }
 
-var threats = {
-  ["evil ship", 5, 2, 3, event_do_dmg(1), event_do_dmg(2), event_do_dmg(3)],
-  ["more evil ship", 5, 3, 2, event_do_dmg(1), event_do_dmg(2), event_do_dmg(3)]
-}
+var threats = [
+  ["evil ship", 5, 2, 3, genDoDamageHandler(1), genDoDamageHandler(2), genDoDamageHandler(3)],
+  ["more evil ship", 5, 3, 2, genDoDamageHandler(1), genDoDamageHandler(2), genDoDamageHandler(3)]
+]
 
-var serious_threats = {
-  ["boo", 8, 3, 2, event_do_dmg(2), event_do_dmg(3), event_do_dmg(4)],
-  ["spook", 10, 2, 3, event_do_dmg(1), event_do_dmg(2), event_do_dmg(2)]
-}
+var seriousThreats = [
+  ["boo", 8, 3, 2, genDoDamageHandler(2), genDoDamageHandler(3), genDoDamageHandler(4)],
+  ["spook", 10, 2, 3, genDoDamageHandler(1), genDoDamageHandler(2), genDoDamageHandler(2)]
+]
 
 exports.generate = function(serious_threat) {
   var stats_list = serious_threat ? serious_threats : threats;
