@@ -6,3 +6,14 @@ body {
 a {
   color: #00B7FF;
 }
+.buttonContainer {
+  display:inline-block;
+  width:65%;
+  background-color: gray;
+}
+.enemyContainer {
+  display:inline-block;
+  background-color: blue;
+  width:30%;
+  border-right:1px solid;
+}

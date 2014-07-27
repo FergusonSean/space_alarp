@@ -56,6 +56,7 @@ var genEnemy = function(name, hp, shields, speed, x, y, z) {
       });
     }
   }
+  return enemy;
 }
 
 var threats = [
@@ -68,8 +69,13 @@ var seriousThreats = [
   ["spook", 10, 2, 3, genDoDamageHandler(1), genDoDamageHandler(2), genDoDamageHandler(2)]
 ]
 
-exports.generate = function(serious_threat) {
-  var stats_list = serious_threat ? serious_threats : threats;
-  var stats = stats_list[Math.floor(Math.random() * stats_list.length)];
-  return gen_enemy(stats);
+exports.generate = function(seriousThreat, index) {
+  var stats_list = seriousThreat ? seriousThreats : threats;
+
+  if(typeof index === undefined){
+    index = Math.floor(Math.random() * stats_list.length)
+  }
+
+  var stats = stats_list[index];
+  return genEnemy.apply(null, stats);
 }
