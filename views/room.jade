@@ -2,11 +2,15 @@ extends layout
 block head
   style.
     body {
-      background-color:green;
     }
-
+  title Room 
 block content
   .enemyContainer.
     stuff
-  .buttonContainer.
-    more stuff  
+  .infoContianer.
+    more stuff
+  .buttonContainer
+    button.aButton A
+    button.bButton B
+block javascript
+  script(src="/Scripts/jquery.timeago.js")
