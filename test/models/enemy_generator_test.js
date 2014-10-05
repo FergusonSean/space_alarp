@@ -1,5 +1,5 @@
-var generator = require('../models/enemy_generator')
-var mission = require('../models/mission')
+var generator = require('../../models/enemy_generator')
+var mission = require('../../models/mission')
 
 exports['testGenerateEnemy'] = function (test) {
   enemy = generator.generate(true, 0)
@@ -16,32 +16,35 @@ exports['testGenerateEnemy'] = function (test) {
 };
 
 exports['testLaunchEnemyCreatesCallbacks'] = function (test) {
-  firstHit = false
-  secondHit = false
-  thirdHit = false
-
   var originalTimeout = setTimeout
   try {
     var events = []
-    globals.setTimeout = function(callback, timeout) {
-      events << [callback, timeout]
+    global.setTimeout = function(callback, timeout) {
+      events.push({
+        callback: callback,
+        timeout: timeout
+      })
     }
+    expectedEvent = -1
 
     ship = mission._data
     sector = ship.white
-    enemy = generator.genEnemy("test", 20, 5, 5, 4,
-      function() { return 1 },
-      function() { return 2 },
-      function() { return 3 }
+    enemy = generator._genEnemy("test", 5, 5, 60,
+      function() { test.equal("x", expectedEvent) },
+      function() { test.equal("y", expectedEvent) },
+      function() { test.equal("z", expectedEvent) }
     )
+
     enemy.assignSector(ship, sector)
     enemy.launch(ship, sector)
 
-    
+    test.equal(mission._sectorLength, events.length)
+    for(var i = 1; i <= mission._sectorLength; i++) {
+      test.equal(i*1000, events[i-1].timeout)
+    }
 
     test.done()
   } finally {
-    globals.setTimeout = originalTimeout
+    global.setTimeout = originalTimeout
   }
-  
 };

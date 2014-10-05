@@ -4,10 +4,6 @@ var genDoDamageHandler = function(damage) {
   }
 }
 
-var sectorLength = 20;
-var distanceToX = 12;
-var distanceToY = 6;
-
 var genEnemy = function(name, hp, shields, speed, x, y, z) {
   enemy = {
     "name": name,
@@ -46,14 +42,14 @@ var genEnemy = function(name, hp, shields, speed, x, y, z) {
     }
   }
   enemy["assignSector"] = function(ship, sector) {
-    enemy["distance"] = sectorLength;
-    sector.enemies << enemy;
+    enemy["distance"] = sector.length()
+    sector.enemies.push(enemy)
   }
   enemy["launch"] = function(ship, sector) {
-    for(var i = 1; i <= sectorLength; i++) {
-      setTimeout((45000*i)/enemy.speed, function() {
-        enemy.advance(ship, sector);
-      });
+    for(var i = 1; i <= sector.length(); i++) {
+      setTimeout(function() {
+        enemy.advance(ship, sector)
+      }, (60000*i)/enemy.speed)
     }
   }
   return enemy;
@@ -79,5 +75,5 @@ exports.generate = function(seriousThreat, index) {
   var stats = stats_list[index];
   return genEnemy.apply(null, stats);
 }
-// PRIVATE
+// Exported for testing only
 exports._genEnemy = genEnemy;

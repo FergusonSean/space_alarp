@@ -1,16 +1,9 @@
-exports._data = data 
   
-var data = {
-  upper_red: {capacity: 2, charge:1},
-  lower_red: {capacity: 3, charge:2},
-  upper_white: {capacity: 3, charge:1},
-  lower_white: {capacity: 5, charge:3, cannisters:3},
-  upper_blue: {capacity: 2, charge:1},
-  lower_blue: {capacity: 3, charge:2},
-  white:{enemies:[], damage:0},
-  red:{enemies:[], damage:0},
-  blue:{enemies:[], damage:0}
-}
+var data = null
+
+var sectorLength = 20;
+var distanceToX = 12;
+var distanceToY = 6;
 
 exports.initialize = function() {
   data = {
@@ -20,11 +13,12 @@ exports.initialize = function() {
     lower_white: {capacity: 5, charge:3, cannisters:3},
     upper_blue: {capacity: 2, charge:1},
     lower_blue: {capacity: 3, charge:2},
-    white:{enemies:[], damage:0},
-    red:{enemies:[], damage:0},
-    blue:{enemies:[], damage:0}
+    white:{enemies:[], damage:0, length:function(){ return sectorLength }},
+    red:  {enemies:[], damage:0, length:function(){ return sectorLength }},
+    blue: {enemies:[], damage:0, length:function(){ return sectorLength }}
   }
 };
+exports.initialize();
 
 exports.mission_data = function() {
   return JSON.stringify(data);
@@ -47,3 +41,8 @@ exports.applyShieldDelta = function(red, white, blue) {
   data.upper_white.charge += white
   data.upper_blue.charge += blue
 };
+// Exported for testing only
+exports._data = data 
+exports._sectorLength = sectorLength;
+exports._distanceToX = distanceToX;
+exports._distanceToY = distanceToY;
