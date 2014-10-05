@@ -79,3 +79,5 @@ exports.generate = function(seriousThreat, index) {
   var stats = stats_list[index];
   return genEnemy.apply(null, stats);
 }
+
+exports.genEnemy = genEnemy;
