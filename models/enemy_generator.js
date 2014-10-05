@@ -25,9 +25,9 @@ var genEnemy = function(name, hp, shields, speed, x, y, z) {
     
     oldDist = enemy.distance;
     enemy.distance -= 1;
-    if (oldDist > distanceToX && distanceToX >= enemy.distance) {
+    if (oldDist > sector.distanceToX() && sector.distanceToX() >= enemy.distance) {
       enemy.x(ship, sector, enemy);
-    } else if (oldDist > distanceToY && distanceToY >= enemy.distance) {
+    } else if (oldDist > sector.distanceToY() && sector.distanceToY() >= enemy.distance) {
       enemy.y(ship, sector, enemy);
     } else if (enemy.distance <= 0) {
       enemy.z(ship, sector, enemy);

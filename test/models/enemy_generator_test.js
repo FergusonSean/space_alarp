@@ -25,8 +25,8 @@ exports['testLaunchEnemyCreatesCallbacks'] = function (test) {
         timeout: timeout
       })
     }
-    expectedEvent = -1
-
+    
+    var expectedEvent = null
     ship = mission._data
     sector = ship.white
     enemy = generator._genEnemy("test", 5, 5, 60,
@@ -41,6 +41,17 @@ exports['testLaunchEnemyCreatesCallbacks'] = function (test) {
     test.equal(mission._sectorLength, events.length)
     for(var i = 1; i <= mission._sectorLength; i++) {
       test.equal(i*1000, events[i-1].timeout)
+      switch(i) {
+      case 20 - mission._distanceToX:
+        expectedEvent = "x"; break
+      case 20 - mission._distanceToY:
+        expectedEvent = "y"; break
+      case 20:
+        expectedEvent = "z"; break
+      default:
+        expectedEvent = null
+      }
+      events[i-1].callback();
     }
 
     test.done()

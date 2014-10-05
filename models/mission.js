@@ -5,6 +5,16 @@ var sectorLength = 20;
 var distanceToX = 12;
 var distanceToY = 6;
 
+var Sector = function(){
+  return {
+    enemies: [],
+    damage: 0,
+    length:      function() { return sectorLength },
+    distanceToX: function() { return distanceToX },
+    distanceToY: function() { return distanceToY }
+  }
+};
+
 exports.initialize = function() {
   data = {
     upper_red: {capacity: 2, charge:1},
@@ -13,9 +23,9 @@ exports.initialize = function() {
     lower_white: {capacity: 5, charge:3, cannisters:3},
     upper_blue: {capacity: 2, charge:1},
     lower_blue: {capacity: 3, charge:2},
-    white:{enemies:[], damage:0, length:function(){ return sectorLength }},
-    red:  {enemies:[], damage:0, length:function(){ return sectorLength }},
-    blue: {enemies:[], damage:0, length:function(){ return sectorLength }}
+    white: Sector(),
+    red:   Sector(),
+    blue:  Sector()
   }
 };
 exports.initialize();
