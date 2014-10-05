@@ -41,3 +41,9 @@ exports.movePower = function(red, white, blue) {
   data.lower_white.charge += white
   data.lower_blue.charge += blue
 };
+
+exports.applyShieldDelta = function(red, white, blue) {
+  data.upper_red.charge += red
+  data.upper_white.charge += white
+  data.upper_blue.charge += blue
+};
